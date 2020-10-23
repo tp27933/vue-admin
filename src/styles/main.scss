@@ -1,1 +1,17 @@
-@import "./normalize.scss"
+@import "./config.scss";
+@import "./normalize.scss";
+@import "./elementui.scss";
+
+.floatR{
+  float:right
+}
+
+.floatL{
+  float:left
+}
+
+.clearFix{
+  content: "";
+  display: table;
+  clear: both;
+}

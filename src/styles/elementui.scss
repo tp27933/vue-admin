@@ -1,0 +1,100 @@
+@import "config.scss";
+.el-submenu .el-menu-item{
+  font-size: 14px;
+  padding-left: 50px !important;
+ &.is-active{background-color: rgba(245,108,108,0.2) !important;}
+}
+li.el-submenu {
+  &.is-active.is-opened .el-submenu__title {background-color:$mainColor !important;}
+}
+.el-avatar>img{
+  width: 100%;
+}
+.el-tabs__nav {
+float: none;
+}
+
+
+.row-expand-cover .el-table__expand-icon {
+  visibility: hidden !important;
+}
+
+/*主頁*/
+.home_wrap{
+  .el-tabs{
+    margin-left: 280px;
+  }
+  .el-tabs__nav-wrap::after{
+    width: 0%;
+  }
+  .el-tabs__item:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: #E4E7ED;
+  }
+}
+/*創建用戶頁面*/
+#signup-wrap{
+  .el-input__inner,.el-textarea__inner{
+    width: 100%;
+  }
+}
+#main-wrap{
+  .content{
+    background-color: #fff;
+  }
+}
+/*用戶資料頁面*/
+
+#user-wrap{
+width: 100%;
+.el-tabs--bottom .el-tabs__header.is-bottom {
+  margin-top: 50px !important;
+}
+.el-tabs__nav-wrap::after {
+  content: none;
+}
+.el-tabs__item.is-active {
+color:#303133;
+}
+
+.el-tabs__active-bar {
+  display: none;
+}
+}
+
+
+.tabs{
+  .el-tabs__header{
+    margin: 0;
+  }
+}
+/*用戶頁面_切換欄資料*/
+
+#deposit{
+  .el-input{
+    width: 90%;
+}
+.el-form-item__content{
+  .el-form-item__error:nth-child(6){
+   top:45px;
+    left:230px;
+  }
+}
+.typeOptions{
+  top:250px!important;
+}
+h2{
+  position: relative;
+  top: 30px;
+}
+h2.fixbug{
+  top:45px;
+  left: 120px;
+  
+}
+}
+

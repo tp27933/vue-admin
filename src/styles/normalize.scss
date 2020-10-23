@@ -1,5 +1,5 @@
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-
+@import url("https://fonts.googleapis.com/earlyaccess/notosanstc.css");
 /* Document
    ========================================================================== */
 
@@ -34,9 +34,10 @@ section,summary,time,mark,audio,video{
   /**
    * Remove the margin in all browsers.
    */
-  
+  @import url("https://fonts.googleapis.com/earlyaccess/notosanstc.css");
   body {
     margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
   }
   
   /**
@@ -361,4 +362,8 @@ section,summary,time,mark,audio,video{
   
   [hidden] {
     display: none;
+  }
+
+  li{
+    list-style: none;
   }
