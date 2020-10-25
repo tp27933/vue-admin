@@ -7,7 +7,7 @@ function resolve(dir) {
 module.exports = {
   publicPath:
     process.env.NODE_ENV === 'production'
-      ? '/static/' // <REPO> 是github的專案名稱
+      ? '/vue-admin/' // <REPO> 是github的專案名稱
       : '/',
   outputDir:
     process.env.NODE_ENV === 'production'
