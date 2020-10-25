@@ -1,6 +1,5 @@
 <template>
   <div>
-    <span>+</span>
     <ul>
       <li
         v-for="(item, index) in member"
@@ -55,12 +54,6 @@ export default {
   setup(props) {
     const member = reactive([
       {
-        name: 'Amy',
-        position: '執行長',
-        image:
-          'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'
-      },
-      {
         name: '陳佳惠',
         position: '櫃台',
         image: require('../../assets/1.jpg')
@@ -94,6 +87,11 @@ export default {
         name: '陳佳惠',
         position: '櫃台',
         image: require('../../assets/7.jpg')
+      },
+      {
+        name: '陳佳惠',
+        position: '櫃台',
+        image: require('../../assets/7.jpg')
       }
     ]);
     return {
@@ -108,11 +106,17 @@ export default {
   background-position: center center;
   background-size: cover;
 }
+ul {
+  padding: 0 50px;
+}
 li {
   width: 220px;
   height: 220px;
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 50px;
+}
+li:nth-child(2n) {
+  margin: 10px 10px 0 50px ;
 }
 .item {
   position: relative;
@@ -185,7 +189,7 @@ li {
   }
   h3 {
     margin: 0 40px;
-    padding: 45px 0 20px 0;
+    padding: 75px 0 20px 0;
     border-bottom: 1px solid
       rgba(255, 255, 255, 0.5);
   }
