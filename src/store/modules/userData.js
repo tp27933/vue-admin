@@ -1,4 +1,4 @@
-
+import { UpdataUserData } from '@/api/user.js';
 const state = {
   tabsDisable: true,
   userForm: {
@@ -9,11 +9,11 @@ const state = {
     level: '',
     amount: '',
     note: '',
-    avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+    avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
   }
-}
+};
 const mutations = {
-  RESET_USER (state) {
+  RESET_USER(state) {
     const getDefaultState = () => {
       return {
         name: '',
@@ -24,31 +24,46 @@ const mutations = {
         amount: '',
         note: '',
         avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-      }
-    }
-    Object.assign(state.userForm, getDefaultState())
-
+      };
+    };
+    Object.assign(state.userForm, getDefaultState());
   },
-  RENDER_USER (state, data) {
-    let arr = []
-    Object.keys(state.userForm).map(function (key, index) {
-      state.userForm[key] = data[key]
+  RENDER_USER(state, data) {
+    console.log(data);
+    let arr = [];
+    Object.keys(state.userForm).map(function(key, index) {
+      state.userForm[key] = data[key];
     });
-
   },
-  SET_TABS_DISABLED (state, data) {
-    state.tabsDisable = data
-  },
-}
-const actions = {
-  REST_USER_STATE ({ commit }) {
-    commit('RESET_USER')
+  SET_TABS_DISABLED(state, data) {
+    state.tabsDisable = data;
   }
-}
+};
+const actions = {
+  REST_USER_STATE({ commit }) {
+    commit('RESET_USER');
+  },
+  UPDATE_USER_DATA({ commit, state }, requestData) {
+    console.log(state.userForm.cardNumber);
+    requestData.cardNumber = state.userForm.cardNumber;
+    return new Promise((resolve, rejcet) => {
+      UpdataUserData(requestData)
+        .then(response => {
+          console.log(response);
+          commit('RENDER_USER', response.data);
+          console.log(state);
+          resolve(response);
+        })
+        .catch(error => {
+          rejcet(error);
+        });
+    });
+  }
+};
 
 export default {
   namespaced: true,
   actions,
   state,
-  mutations,
+  mutations
 };

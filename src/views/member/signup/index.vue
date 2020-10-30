@@ -26,100 +26,45 @@
       </div>
       <!-- form 表格 -->
       <div class="form floatL ">
-        <template
-          v-for="(item, index) in labelData"
-        >
-          <el-form-item
-            :label="item.label"
-            :prop="item.lableProp"
-            :key="index"
-          >
-            <template
-              v-if="item.lableProp === 'gender'"
-            >
-              <el-radio-group
-                v-model="ruleForm.gender"
-              >
+        <template v-for="(item, index) in labelData">
+          <el-form-item :label="item.label" :prop="item.lableProp" :key="index">
+            <template v-if="item.lableProp === 'gender'">
+              <el-radio-group v-model="ruleForm.gender">
                 <el-radio label="女"></el-radio>
                 <el-radio label="男"></el-radio>
               </el-radio-group>
             </template>
 
-            <template
-              v-else-if="
-                item.lableProp === 'level'
-              "
-            >
-              <el-select
-                v-model="ruleForm.level"
-                placeholder="请选择會員卡等級"
-              >
-                <el-option
-                  label="銀卡 "
-                  value="sliver"
-                ></el-option>
-                <el-option
-                  label="黃金"
-                  value="gold"
-                ></el-option>
-                <el-option
-                  label="vip"
-                  value="vip"
-                ></el-option>
+            <template v-else-if="item.lableProp === 'level'">
+              <el-select v-model="ruleForm.level" placeholder="请选择會員卡等級">
+                <el-option label="銀卡 " value="sliver"></el-option>
+                <el-option label="黃金" value="gold"></el-option>
+                <el-option label="vip" value="vip"></el-option>
               </el-select>
             </template>
 
-            <template
-              v-else-if="
-                item.lableProp === 'note'
-              "
-            >
-              <el-input
-                type="textarea"
-                v-model="ruleForm.note"
-              ></el-input>
+            <template v-else-if="item.lableProp === 'note'">
+              <el-input type="textarea" v-model="ruleForm.note"></el-input>
             </template>
 
-            <template
-              v-else-if="
-                item.lableProp === 'name'
-              "
-            >
-              <el-input
-                type="text"
-                v-model="ruleForm.name"
-              ></el-input>
+            <template v-else-if="item.lableProp === 'name'">
+              <el-input type="text" v-model="ruleForm.name"></el-input>
             </template>
-            <el-input
-              v-else
-              v-model.number="
-                ruleForm[item.lableProp]
-              "
-            ></el-input>
+            <el-input v-else v-model.number="ruleForm[item.lableProp]"></el-input>
           </el-form-item>
         </template>
 
         <el-form-item>
-          <el-button
-            type="primary"
-            @click="submitForm('ruleForm')"
-          >
+          <el-button type="primary" @click="submitForm('ruleForm')">
             立即创建
           </el-button>
-          <el-button
-            @click="resetForm('ruleForm')"
-            >重置</el-button
-          >
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </div>
     </el-form>
     <!-- zoom-in  大頭貼放大圖 -->
     <el-dialog :visible.sync="dialogVisible">
-      <img
-        width="100%"
-        :src="dialogImageUrl"
-        alt=""
-      />
+      <img width="100%" :src="dialogImageUrl" alt="" />
     </el-dialog>
   </div>
 </template>
@@ -127,11 +72,7 @@
 <script>
 import { Signup } from '@/api/user.js';
 
-import {
-  reactive,
-  ref,
-  refs
-} from '@vue/composition-api';
+import { reactive, ref, refs } from '@vue/composition-api';
 export default {
   name: 'signup',
   setup(props, { root, refs }) {
@@ -241,14 +182,10 @@ export default {
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG) {
-        root.$message.error(
-          '上传头像图片只能是 JPG 格式!'
-        );
+        root.$message.error('上传头像图片只能是 JPG 格式!');
       }
       if (!isLt2M) {
-        root.$message.error(
-          '上传头像图片大小不能超过 2MB!'
-        );
+        root.$message.error('上传头像图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
     };

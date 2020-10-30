@@ -1,20 +1,11 @@
 <template>
   <div id="header-wrap">
-    <div
-      class="header-icon floatL"
-      @click="navMenuSate"
-    >
-      <svg-icon
-        iconClass="menu"
-        className="menu"
-      />
+    <div class="header-icon floatL" @click="navMenuSate">
+      <svg-icon iconClass="menu" className="menu" />
     </div>
-    <div class="header-icon floatR ">
+    <div class="header-icon floatR " @click="logout()">
       <div class="user-info"></div>
-      <svg-icon
-        iconClass="loginout"
-        className="loginout"
-      />
+      <svg-icon iconClass="loginout" className="loginout" />
     </div>
   </div>
 </template>
@@ -26,7 +17,15 @@ export default {
     const navMenuSate = () => {
       root.$store.commit('app/SET_COLLAPSE');
     };
+    const logout = () => {
+      root.$store.dispatch('app/logout').then(() => {
+        root.$router.push({
+          name: 'Login'
+        });
+      });
+    };
     return {
+      logout,
       navMenuSate
     };
   }
@@ -37,15 +36,13 @@ export default {
 
 #header-wrap {
   position: fixed;
+  z-index: 99999999;
   top: 0;
   right: 0;
   left: 250px;
   height: 40px;
   background-color: #fff;
-  @include webkit(
-    box-shadow,
-    0 3px 16px 0 rgba(0, 0, 0, 0.1)
-  );
+  @include webkit(box-shadow, 0 3px 16px 0 rgba(0, 0, 0, 0.1));
   @include webkit(transition, all 0.3s ease 0s);
 }
 .open {

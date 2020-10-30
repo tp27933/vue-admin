@@ -75,26 +75,46 @@ color:#303133;
 /*用戶頁面_切換欄資料*/
 
 #deposit{
-  .el-input{
-    width: 90%;
-}
-.el-form-item__content{
-  .el-form-item__error:nth-child(6){
-   top:45px;
-    left:230px;
+ .el-dialog{
+    text-align: left!important;
+    .el-input{
+      width: 90%;
   }
-}
-.typeOptions{
-  top:250px!important;
-}
-h2{
-  position: relative;
-  top: 30px;
-}
-h2.fixbug{
-  top:45px;
-  left: 120px;
-  
-}
+  .el-form-item__content{
+    .el-form-item__error:nth-child(6){
+     top:45px;
+      left:230px;
+    }
+  }
+  .typeOptions{
+    top:250px!important;
+  }
+  h2{
+    position: relative;
+    top: 30px;
+  }
+  h2.fixbug{
+    top:45px;
+    left: 120px;
+    
+  }
+  }
+ .el-radio{
+   margin-left: 10px;
+ }
+ .el-button{
+   margin-top:20px;
+ }
 }
 
+#edit-wrap{
+  .el-dialog__body {
+    padding: 20px 40px;
+    .el-form-item {
+      margin-bottom: 10px;
+    }
+    .el-textarea .el-textarea__inner{ // 然后找到对应的类名，在这里将拉伸去掉即可
+      resize: none;
+    }
+  }
+}

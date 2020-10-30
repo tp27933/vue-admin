@@ -1,69 +1,49 @@
-
 <template>
   <div class="home_wrap">
-
     <div class="up">
       <div id="MembershipCard_wrap">
-        <span>會員總數: {{memberAmountData.total}}</span>
-        <span>今日增加會員: {{memberAmountData.newToday}}</span>
+        <span>會員總數: {{ memberAmountData.total }}</span>
+        <span>今日增加會員: {{ memberAmountData.newToday }}</span>
         <span>今日收入: {{ memberAmountData.income }}</span>
       </div>
-
     </div>
     <div id="type_wrap"></div>
     <div class="data">
-      <el-tabs
-        v-model="activeTabName"
-        @tab-click="handleClick"
-      >
-        <el-tab-pane
-          label="上周數據"
-          name="weekData"
-        ></el-tab-pane>
-        <el-tab-pane
-          label="每月數據"
-          name="monthData"
-        ></el-tab-pane>
-
+      <el-tabs v-model="activeTabName" @tab-click="handleClick">
+        <el-tab-pane label="上周數據" name="weekData"></el-tab-pane>
+        <el-tab-pane label="每月數據" name="monthData"></el-tab-pane>
       </el-tabs>
 
-      <div id="revenue_wrap">
-      </div>
+      <div id="revenue_wrap"></div>
     </div>
-
   </div>
-
 </template>
 
-<script >
-
-import { MemberAmount } from '@/api/homeData.js'
+<script>
+import { MemberAmount } from '@/api/homeData.js';
 import { reactive, onMounted, ref } from '@vue/composition-api';
 export default {
   name: 'home',
-  setup (props, { root }) {
-
-
+  setup(props, { root }) {
     /*-----------------初始化數值----------------------*/
-    const revenue = ref('0')
-    const activeTabName = ref('weekData')
-    const barXAxisData = reactive({ data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] })
+    const revenue = ref('0');
+    const activeTabName = ref('weekData');
+    const barXAxisData = reactive({ data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] });
     const memberAmountData = reactive({
       total: 0,
       newToday: 0,
-      income: 0,
-    })
+      income: 0
+    });
 
     /*---------函數聲明-------------*/
 
     //( echart- 餅狀圖數據)
     const drawTypeChart = () => {
-      let myChart = root.$echarts.init(document.getElementById("type_wrap"))
-      window.onresize = function () {
-        myChart.resize()
-      }
+      let myChart = root.$echarts.init(document.getElementById('type_wrap'));
+      window.onresize = function() {
+        myChart.resize();
+      };
       let option = reactive({
-
         title: {
           text: '本月營銷類型分布',
           left: 'center',
@@ -99,7 +79,9 @@ export default {
               { value: 274, name: '燙髮' },
               { value: 235, name: '護理' },
               { value: 400, name: '其他' }
-            ].sort(function (a, b) { return a.value - b.value; }),
+            ].sort(function(a, b) {
+              return a.value - b.value;
+            }),
             roseType: 'radius',
             label: {
               color: 'rgba(255, 255, 255, 0.3)'
@@ -113,28 +95,28 @@ export default {
               length2: 20
             },
             itemStyle: {
-              color: '#ff2b44',
+              color: '#ff2b44'
             },
 
             animationType: 'scale',
             animationEasing: 'elasticOut',
-            animationDelay: function (idx) {
+            animationDelay: function(idx) {
               return Math.random() * 200;
             }
           }
         ]
-      })
+      });
       myChart.setOption(option);
-    }
+    };
     //( echart- 柱狀圖數據)
     const drawRevenue = () => {
-      let myChart = root.$echarts.init(document.getElementById("revenue_wrap"))
-      window.onresize = function () {
-        myChart.resize()
-      }
+      let myChart = root.$echarts.init(document.getElementById('revenue_wrap'));
+      window.onresize = function() {
+        myChart.resize();
+      };
       const option = reactive({
         grid: {
-          y: 40,
+          y: 40
         },
         xAxis: {
           type: 'category',
@@ -152,49 +134,62 @@ export default {
             }
           }
         ],
-        series: [{
-          data: [3040, 4200, 11150, 6120, 4120, 10120, 22120, 4120, 11200, 3150, 9120, 3120],
-          type: 'bar',
-          color: '  #374bbc',
-        }]
-
-      })
-      myChart.setOption(option, true)
-    }
+        series: [
+          {
+            data: [3040, 4200, 11150, 6120, 4120, 10120, 22120, 4120, 11200, 3150, 9120, 3120],
+            type: 'bar',
+            color: '  #374bbc'
+          }
+        ]
+      });
+      myChart.setOption(option, true);
+    };
     //( echart- tab切換)
     const handleClick = (tab, event) => {
       if (activeTabName.value === 'weekData') {
-        barXAxisData.data = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        barXAxisData.data = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       } else {
-        barXAxisData.data = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月',]
+        barXAxisData.data = [
+          '一月',
+          '二月',
+          '三月',
+          '四月',
+          '五月',
+          '六月',
+          '七月',
+          '八月',
+          '九月',
+          '十月',
+          '十一月',
+          '十二月'
+        ];
       }
-      drawRevenue()
-    }
-
-
-
+      drawRevenue();
+    };
 
     const getMemberAmountData = () => {
-      let time = new Date().getTime()
-      MemberAmount(time).then(res => {
-        for (let key in memberAmountData) {
-          if (memberAmountData[key] || memberAmountData[key] == 0) {
-            memberAmountData[key] = res.data[key]
+      let time = new Date().getTime();
+      MemberAmount(time)
+        .then(res => {
+          for (let key in memberAmountData) {
+            if (memberAmountData[key] || memberAmountData[key] == 0) {
+              memberAmountData[key] = res.data[key];
+            }
           }
-        }
-        /* memberAmountData.total = res.data.total
+          /* memberAmountData.total = res.data.total
            memberAmountData.newToday = res.data.newToday
            memberAmountData.income = res.data.income*/
-      }).catch(err => {
-        console.log(err);
-      })
-    }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
 
     onMounted(() => {
-      drawTypeChart()
-      drawRevenue()
-      getMemberAmountData()
-    })
+      drawTypeChart();
+      drawRevenue();
+      getMemberAmountData();
+    });
 
     return {
       memberAmountData,
@@ -205,11 +200,9 @@ export default {
       drawRevenue,
       drawTypeChart,
       revenue
-    }
+    };
   }
-}
-
-
+};
 
 /* let time = new Date()
      let timer = time.getMilliseconds()
@@ -224,11 +217,12 @@ export default {
   background-color: #f7f7f7 !important;
 }
 .up {
+  position: relative;
   border-bottom: 15px solid #f7f7f7;
   height: 150px;
 }
 #MembershipCard_wrap:before {
-  content: "";
+  content: '';
   height: 100%;
   display: inline-block;
   vertical-align: middle;
@@ -243,17 +237,14 @@ export default {
 #type_wrap {
   height: 250px;
 }
+
 #type_wrap,
 #MembershipCard_wrap {
-  top: 25px;
-
-  float: left;
   text-align: center;
-
   span {
     display: inline-block;
     margin-left: 20px;
-    padding: 3rem 7rem;
+    padding: 3rem 6rem;
     vertical-align: middle;
     color: #ffff;
     font-weight: 700;
@@ -272,9 +263,17 @@ export default {
   }
 }
 #type_wrap {
+  float: left;
   width: 20vw;
+  top: 25px;
 }
 #MembershipCard_wrap {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   width: 80vw;
 }
 
@@ -286,7 +285,3 @@ export default {
   top: 0px;
 }
 </style>
-
-
-
-    

@@ -9,10 +9,7 @@ module.exports = {
     process.env.NODE_ENV === 'production'
       ? '/vue-admin/' // <REPO> 是github的專案名稱
       : '/',
-  outputDir:
-    process.env.NODE_ENV === 'production'
-      ? 'dist'
-      : 'devdist',
+  outputDir: process.env.NODE_ENV === 'production' ? 'dist' : 'devdist',
 
   // eslint-loader 是否在保存的时候检查
   lintOnSave: true,
@@ -42,9 +39,7 @@ module.exports = {
       .end();
   },
   configureWebpack: config => {
-    if (
-      process.env.VUE_APP_MODE === 'production'
-    ) {
+    if (process.env.VUE_APP_MODE === 'production') {
       // 为生产环境修改配置...
       config.mode = 'production';
     } else {
@@ -58,10 +53,7 @@ module.exports = {
         alias: {
           vue: 'vue/dist/vue.js',
           '@': path.resolve(__dirname, './src'),
-          '@c': path.resolve(
-            __dirname,
-            './src/components'
-          )
+          '@c': path.resolve(__dirname, './src/components')
           //'@p': path.resolve(__dirname, './src/views')
         } // 别名配置
       }
@@ -77,8 +69,7 @@ module.exports = {
     sourceMap: false,
     loaderOptions: {
       sass: {
-        prependData:
-          '@import "./src/styles/main.scss";'
+        prependData: '@import "./src/styles/main.scss";'
       }
     }
   },
@@ -92,15 +83,14 @@ module.exports = {
     hotOnly: false, // hot 和 hotOnly 的区别是在某些模块不支持热更新的情况下，前者会自动刷新页面，后者不会刷新页面，而是在控制台输出热更新失败
     proxy: {
       '/userApi': {
-        target: 'http://localhost:3000', //目标接口域名
+        target: 'https://406d3ab04d3e.ngrok.io', //目标接口域名
         changeOrigin: true, //是否跨域
         pathRewrite: {
           '^/userApi': '' //重写接口
         }
       },
       '/devApi': {
-        target:
-          'http://www.web-jshtml.cn/productapi', //目标接口域名
+        target: 'http://www.web-jshtml.cn/productapi/token', //目标接口域名
         changeOrigin: true, //是否跨域
         pathRewrite: {
           '^/devApi': '' //重写接口

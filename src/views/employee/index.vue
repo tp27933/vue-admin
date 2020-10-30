@@ -1,10 +1,7 @@
 <template>
   <div>
     <ul>
-      <li
-        v-for="(item, index) in member"
-        :key="index"
-      >
+      <li v-for="(item, index) in member" :key="index">
         <!-- 底部圖片 -->
         <div
           class="item"
@@ -42,13 +39,7 @@
 </template>
 
 <script>
-import {
-  ref,
-  watch,
-  computed,
-  reactive,
-  onMounted
-} from '@vue/composition-api';
+import { ref, watch, computed, reactive, onMounted } from '@vue/composition-api';
 export default {
   name: 'employee',
   setup(props) {
@@ -82,16 +73,6 @@ export default {
         name: '陳佳惠',
         position: '櫃台',
         image: require('../../assets/6.jpg')
-      },
-      {
-        name: '陳佳惠',
-        position: '櫃台',
-        image: require('../../assets/7.jpg')
-      },
-      {
-        name: '陳佳惠',
-        position: '櫃台',
-        image: require('../../assets/7.jpg')
       }
     ]);
     return {
@@ -116,7 +97,7 @@ li {
   margin-left: 50px;
 }
 li:nth-child(2n) {
-  margin: 10px 10px 0 50px ;
+  margin: 10px 10px 0 50px;
 }
 .item {
   position: relative;
@@ -135,8 +116,7 @@ li:nth-child(2n) {
   background: #fff;
   overflow: hidden;
   border-radius: 50%;
-  box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.2),
-    inset 0 0 3px rgba(115, 114, 23, 0.8);
+  box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 3px rgba(115, 114, 23, 0.8);
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
@@ -190,8 +170,7 @@ li:nth-child(2n) {
   h3 {
     margin: 0 40px;
     padding: 75px 0 20px 0;
-    border-bottom: 1px solid
-      rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   }
   p {
     padding: 20px 0;
@@ -200,8 +179,7 @@ li:nth-child(2n) {
   }
 }
 .item:hover .info-wrap {
-  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8),
-    inset 0 0 3px rgba(115, 114, 23, 0.8);
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8), inset 0 0 3px rgba(115, 114, 23, 0.8);
 }
 
 .item:hover .info {

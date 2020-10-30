@@ -1,12 +1,7 @@
 <template>
   <div id="table">
     <slot></slot>
-    <el-table
-      :data="data.tableData"
-      style="width: 100%; "
-      border
-      :row-class-name="getRowClassName"
-    >
+    <el-table :data="data.tableData" style="width: 100%; " border :row-class-name="getRowClassName">
       <el-table-column
         v-for="(item, index) in data.tHead"
         :key="index"
@@ -17,20 +12,10 @@
 
       <el-table-column type="expand" width="100">
         <template slot-scope="scope">
-          <div
-            v-for="(item, index) in scope.row
-              .detail"
-            :key="index"
-          >
-            <el-form
-              label-position="left"
-              inline
-              class="demo-table-expand"
-            >
+          <div v-for="(item, index) in scope.row.detail" :key="index">
+            <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="操作">
-                <span>{{
-                  childrenData[item.value].label
-                }}</span>
+                <span>{{ childrenData[item.value].label }}</span>
               </el-form-item>
               <el-form-item label="金額">
                 <span>{{ item.amount }}</span>
@@ -46,12 +31,7 @@
 <script>
 import { initDate } from '@/utils/init_data';
 
-import {
-  reactive,
-  ref,
-  watch,
-  onBeforeMount
-} from '@vue/composition-api';
+import { reactive, ref, watch, onBeforeMount } from '@vue/composition-api';
 
 export default {
   name: 'tableVue',
@@ -91,12 +71,7 @@ export default {
         const result = value.map(item => ({
           ...item, //es6省略符號 相當於 id:item.id
           date: initDate(item.date), //不直接通过item.data = item.data+ 2
-          type:
-            item.type == 'deposit'
-              ? '儲值'
-              : item.type == 'withdraw'
-              ? '扣款'
-              : '開卡'
+          type: item.type == 'deposit' ? '儲值' : item.type == 'withdraw' ? '扣款' : '開卡'
         }));
 
         data.tableData = result;
@@ -111,10 +86,7 @@ export default {
         data[key] = configData[key];
       }
     };
-    const getRowClassName = ({
-      row,
-      rowIndex
-    }) => {
+    const getRowClassName = ({ row, rowIndex }) => {
       console.log(row.detail.length);
       if (row.detail.length == 0) {
         return 'row-expand-cover';

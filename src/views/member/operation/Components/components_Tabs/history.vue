@@ -1,10 +1,6 @@
 <template>
   <div id="history">
-    <el-dialog
-      title="歷史紀錄"
-      :visible.sync="dialogTableVisible"
-      @open="sendRequest()"
-    >
+    <el-dialog title="歷史紀錄" :visible.sync="dialogTableVisible" @open="sendRequest()">
       <p>紀錄僅顯示最近20條紀錄</p>
       <TableVue :config="tabs_history" />
     </el-dialog>
@@ -14,10 +10,7 @@
 <script>
 import { PersonalHistory } from '@/api/user.js';
 import TableVue from '@c/Table';
-import {
-  reactive,
-  ref
-} from '@vue/composition-api';
+import { reactive, ref } from '@vue/composition-api';
 export default {
   name: 'history',
   components: { TableVue },
@@ -68,9 +61,7 @@ export default {
 
     const sendRequest = (index, row) => {
       //監聽當前會員數據
-      let userCardNumber =
-        root.$store.state.userData.userForm
-          .cardNumber;
+      let userCardNumber = root.$store.state.userData.userForm.cardNumber;
       let requestData = {
         cardNumber: userCardNumber
       };

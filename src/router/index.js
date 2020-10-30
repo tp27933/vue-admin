@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -9,17 +9,17 @@ const routes = [
     redirect: 'login',
     hidden: true,
     meta: {
-      name: '主頁',
-    },
+      name: '主頁'
+    }
   },
   {
     path: '/login',
     name: 'Login',
     hidden: true,
     meta: {
-      name: '登入',
+      name: '登入'
     },
-    component: () => import('../views/Login/index.vue'),
+    component: () => import('../views/Login/index.vue')
   },
   {
     path: '/home',
@@ -35,15 +35,15 @@ const routes = [
         path: '/index',
         name: 'Index  ',
         meta: {
-          name: '主要內容',
+          name: '主要內容'
         },
-        component: () => import('../views/Home/index.vue'),
-      },
-    ],
+        component: () => import('../views/Home/index.vue')
+      }
+    ]
   },
   {
     path: '/member',
-    name: "Member",
+    name: 'Member',
     meta: {
       name: '會員管理',
       icon: 'el-icon-s-custom'
@@ -51,30 +51,26 @@ const routes = [
     component: () => import('../views/Layout/index.vue'),
     children: [
       {
-
         path: '/signup',
-        name: "Signup",
+        name: 'Signup',
         meta: {
-          name: '申辦會員卡',
+          name: '申辦會員卡'
         },
-        component: () => import('../views/member/signup/index.vue'),
-
+        component: () => import('../views/member/signup/index.vue')
       },
       {
-
         path: '/operation',
-        name: "Operation",
+        name: 'Operation',
         meta: {
-          name: '會員操作',
+          name: '會員操作'
         },
-        component: () => import('../views/member/operation/index.vue'),
-
-      },
+        component: () => import('../views/member/operation/index.vue')
+      }
     ]
   },
   {
     path: '/expense',
-    name: "History",
+    name: 'History',
     redirect: 'history',
     meta: {
       name: '消費紀錄',
@@ -86,17 +82,18 @@ const routes = [
         path: '/history',
         name: 'History  ',
         meta: {
-          name: '歷史紀錄',
+          name: '歷史紀錄'
         },
-        component: () => import('../views/history/index.vue'),
-      },
+        component: () => import('../views/history/index.vue')
+      }
     ]
   },
   {
     path: '/employee',
-    name: "Employee",
+    name: 'Employee',
     meta: {
       name: '員工管理',
+      icon: 'el-icon-user'
     },
     component: () => import('../views/Layout/index.vue'),
     children: [
@@ -104,18 +101,39 @@ const routes = [
         path: '/totalEmployee',
         name: 'TotalEmployee  ',
         meta: {
-          name: '員工總攬',
+          name: '員工總攬'
         },
-        component: () => import('../views/employee/index.vue'),
-      },
+        component: () => import('../views/employee/index.vue')
+      }
     ]
-
   },
-
-]
+{
+    path: '/page404',
+    meta: {
+      name: '404',
+      icon: '404'
+    },
+    hidden:true,
+    component: () => import('../views/Layout/index.vue'),
+    children: [
+      {
+        path: '/404',
+        meta: {
+          name: '404'
+        },
+        component: () => import('../views/404.vue')
+      }
+    ]
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true,
+  },
+];
 
 const router = new VueRouter({
-  routes,
-})
+  routes
+});
 
-export default router
+export default router;

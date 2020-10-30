@@ -1,10 +1,14 @@
 <template>
   <div id="user-wrap">
     <el-row>
-      <el-col :span="20">
-        <SearchVue :config="data.search_data.config" :content="data.search_data.content" ref="searchValue" />
+      <el-col :span="22">
+        <SearchVue
+          :config="data.search_data.config"
+          :content="data.search_data.content"
+          ref="searchValue"
+        />
       </el-col>
-      <el-col :span="4">
+      <el-col :span="2">
         <el-button type="primary" @click="SearchUser">查询</el-button>
       </el-col>
     </el-row>
@@ -25,9 +29,15 @@
       <!------ Form 表格 ------>
       <el-col :span="14">
         <ul>
-          <li v-for="(val, key, index) in data.formData" :key="index" class="operation_form clearFix">
+          <li
+            v-for="(val, key, index) in data.formData"
+            :key="index"
+            class="operation_form clearFix"
+          >
             <label> {{ data.DataTransform[key].label }}</label>
-            <p>{{ val }}</p>
+            <p>
+              <span>{{ val }}</span>
+            </p>
           </li>
         </ul>
       </el-col>
@@ -107,6 +117,7 @@ export default {
     const vuexData = computed({
       get: () => {
         for (let key in root.$store.state.userData.userForm) {
+          console.log('changing');
           if (data.DataTransform[key]) {
             root.$set(data.formData, key, root.$store.state.userData.userForm[key]);
           }
@@ -114,7 +125,9 @@ export default {
         return root.$store.state.userData.userForm;
       }
     });
-
+    watch(vuexData, (newValue, oldValue) => {
+      return newValue;
+    });
     /*-----------------函數聲明---------------------*/
 
     const SearchUser = () => {
@@ -137,10 +150,18 @@ export default {
         GETPROFILE(value).then(response => {
           // ( 後台數據用戶沒有頭像時默認圖片地址 )
           if (response.data.byteLength === 0) {
-            SearchResponse.data.pic = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png';
+            SearchResponse.data.pic =
+              'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png';
           } else {
             // ( 後台數據用戶有頭像時轉義 )
-            let img = 'data:image/png;base64,' + btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            let img =
+              'data:image/png;base64,' +
+              btoa(
+                new Uint8Array(response.data).reduce(
+                  (data, byte) => data + String.fromCharCode(byte),
+                  ''
+                )
+              );
             imageUrl.value = img;
 
             for (let key in SearchResponse.data) {
@@ -165,26 +186,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-p {
-  width: 50%;
-  height: 30px;
-  line-height: 30px;
-  float: left;
-  background-color: #f5f8f9;
-}
-
 li {
   width: 100%;
   padding: 4px;
   margin-top: 10px;
+  p {
+    width: 50%;
+    background-color: #ecf8ff;
+    line-height: 30px;
+    float: left;
+    border-radius: 10px;
+    span {
+      display: inline-block;
+      height: 30px;
+    }
+  }
 }
 
 .operation_form label {
   float: left;
   width: 100px;
-}
-#user-wrap {
-  text-align: center;
 }
 #user-wrap {
   text-align: center;
