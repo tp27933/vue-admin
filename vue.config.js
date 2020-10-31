@@ -83,7 +83,7 @@ module.exports = {
     hotOnly: false, // hot 和 hotOnly 的区别是在某些模块不支持热更新的情况下，前者会自动刷新页面，后者不会刷新页面，而是在控制台输出热更新失败
     proxy: {
       '/userApi': {
-        target: 'https://406d3ab04d3e.ngrok.io', //目标接口域名
+        target: 'http://localhost:3000', //目标接口域名
         changeOrigin: true, //是否跨域
         pathRewrite: {
           '^/userApi': '' //重写接口
