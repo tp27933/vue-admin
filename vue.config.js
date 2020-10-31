@@ -1,5 +1,6 @@
 const path = require('path');
 
+const port = process.env.PORT || 3000;
 function resolve(dir) {
   return path.join(__dirname, '.', dir);
 }
@@ -83,7 +84,7 @@ module.exports = {
     hotOnly: false, // hot 和 hotOnly 的区别是在某些模块不支持热更新的情况下，前者会自动刷新页面，后者不会刷新页面，而是在控制台输出热更新失败
     proxy: {
       '/userApi': {
-        target: 'http://localhost:3000', //目标接口域名
+        target: 'http://127.0.0.1:' + port + '/', //后端接口地址 //目标接口域名
         changeOrigin: true, //是否跨域
         pathRewrite: {
           '^/userApi': '' //重写接口
