@@ -4,11 +4,10 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
-const multer = require('multer');
-const fs = require('fs');
+const serveStatic = require('serve-static');
+app.use(serveStatic(path.join(__dirname, 'dist')));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

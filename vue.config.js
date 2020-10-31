@@ -80,7 +80,7 @@ module.exports = {
     proxy: {
       '/userApi': {
         target: 'http://127.0.0.1:' + port + '/', //后端接口地址 //目标接口域名
-         changeOrigin: true,//是否允许跨越, //是否跨域
+        changeOrigin: true, //是否允许跨越, //是否跨域
         pathRewrite: {
           '^/userApi': '' //重写接口
         }
