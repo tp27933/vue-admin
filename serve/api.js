@@ -3,6 +3,19 @@ const multer = require('multer');
 const fs = require('fs');
 const app = express();
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'uploadIMGS');
+  },
+  filename: function(req, file, cb) {
+    let extname = path.extname(file.originalname);
+    filename = file.fieldname + ',' + Date.now() + extname;
+    cb(null, filename);
+  }
+});
+
+const upload = multer({ storage });
+
 function tran_val(val) {
   if (val < 10) {
     val = '0' + val;
