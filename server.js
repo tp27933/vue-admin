@@ -19,17 +19,17 @@ const fs = require('fs');
 const serveStatic = require('serve-static');
 app.use(serveStatic(path.join(__dirname, 'dist')));
 
-
-
-  if(process.env.NODE_ENV == "production"){
-    mongoose
-  .connect('mongodb+srv://tp27933:tp2793371@cluster0.cgthg.mongodb.net/<dbname>?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('success'))
-  .catch(err => console.log(err, 'fail'));//此处改为mongodb Atlas上的字段码
-}else{
-    mongoose.connect('mongodb://localhost/user');
+if (process.env.NODE_ENV == 'production') {
+  mongoose
+    .connect(
+      'mongodb+srv://tp27933:tp2793371@cluster0.cgthg.mongodb.net/<dbname>?retryWrites=true&w=majority',
+      { useNewUrlParser: true, useUnifiedTopology: true }
+    )
+    .then(() => console.log('success'))
+    .catch(err => console.log(err, 'fail')); //此处改为mongodb Atlas上的字段码
+} else {
+  mongoose.connect('mongodb://localhost/user');
 }
-
 
 function tran_val(val) {
   if (val < 10) {
@@ -37,6 +37,8 @@ function tran_val(val) {
   }
   return val;
 }
+var date = new Date();
+var timer = date.getTime().toString();
 function formateDate() {
   var date = new Date();
   var year = date.getFullYear();
@@ -250,7 +252,7 @@ app.post('/updataUserData', (req, res) => {
   });
 });
 
-app.get('/usersHistory', (req, res) => {
+app.get('/usersHistory' + timer, null, (req, res) => {
   console.log('123');
   const key = JSON.stringify(req.query.key) || JSON.stringify(req.query);
 
