@@ -16,15 +16,8 @@ const multer = require('multer');
 const fs = require('fs');
 
 // 静态资源访问服务功能
-app.use((req, res, next) => {
-  res.set({
-    'Access-Control-Allow-Origin': req.headers.origin || '*',
-    'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
-    'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS'
-    //   "Content-Type":"application/x-www-form-urlencoded/text"
-  });
-  req.method === 'OPTIONS' ? res.status(204).end : next();
-});
+const serveStatic = require('serve-static');
+app.use(serveStatic(path.join(__dirname, 'dist')));
 
 mongoose
   .connect('mongodb://localhost/user', { useNewUrlParser: true, useUnifiedTopology: true })
