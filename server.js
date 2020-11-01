@@ -19,10 +19,18 @@ const fs = require('fs');
 const serveStatic = require('serve-static');
 app.use(serveStatic(path.join(__dirname, 'dist')));
 
-mongoose
-  .connect('mongodb://localhost/user', { useNewUrlParser: true, useUnifiedTopology: true })
+
+
+  if(process.env.NODE_ENV == "production"){
+    mongoose
+  .connect('mongodb+srv://tp27933:tp2793371@cluster0.cgthg.mongodb.net/<dbname>?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('success'))
-  .catch(err => console.log(err, 'fail'));
+  .catch(err => console.log(err, 'fail'));//此处改为mongodb Atlas上的字段码
+}else{
+    mongoose.connect('mongodb://localhost/user');
+}
+
+
 function tran_val(val) {
   if (val < 10) {
     val = '0' + val;
