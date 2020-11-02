@@ -111,29 +111,38 @@ app.post(
 );
 app.post('/signup', (req, res) => {
   let data = req.query;
+  Users.create(
+    {
+      name: data.name,
+      gender: data.gender,
+      cardNumber: data.cardNumber,
+      phoneNumber: data.phoneNumber,
+      level: data.level,
+      amount: data.amount,
+      note: data.note,
+      avatar: req.body.photo
+    },
+    function(err) {
+      if (err) {
+        res.send(err);
+        console.log(err +'ohoh');
+      }
+      let userHistory = new UsersHistory({
+        name: data.name,
+        cardNumber: data.cardNumber,
+        type: data.type,
+        amount: data.amount,
+        date: formateDate()
+      });
+    
+      userHistory.save();
+    }
+  );
+  /*
 
-  let user = new Users({
-    name: data.name,
-    gender: data.gender,
-    cardNumber: data.cardNumber,
-    phoneNumber: data.phoneNumber,
-    level: data.level,
-    amount: data.amount,
-    note: data.note,
-    avatar: req.body.photo
-  });
+  let user = new Users();
   user.save();
-  let userHistory = new UsersHistory({
-    name: data.username,
-    cardNumber: data.cardNumber,
-    type: data.type,
-    amount: data.amount,
-    date: formateDate()
-  });
-
-  userHistory.save();
-
-  res.send('創建成功 ');
+ */
 });
 //用戶儲值
 app.post('/deposit', (req, res) => {
@@ -255,6 +264,7 @@ app.get('/usersHistory', (req, res) => {
       .sort({ $natural: -1 })
       .then(result => {
         res.send(result);
+        console.log(result);
       });
   } else {
     let data = JSON.parse(req.query.key);

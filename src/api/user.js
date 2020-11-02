@@ -41,7 +41,6 @@ export function Search(data) {
 }
 
 export function Signup(data, pic) {
-  console.log(data);
   return service.request({
     method: 'post',
     url: '/signup',
