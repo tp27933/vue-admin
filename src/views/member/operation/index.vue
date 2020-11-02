@@ -136,6 +136,7 @@ export default {
 
       if (value == '') {
         root.$message.error('請輸入關鍵字');
+        return;
       }
       searchValue.value = value;
       checkUser(value);
@@ -206,6 +207,9 @@ li {
   }
 }
 
+li:last-child p {
+  padding: 10px;
+}
 .operation_form label {
   float: left;
   width: 100px;

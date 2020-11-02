@@ -36,7 +36,7 @@ export default {
 
 #header-wrap {
   position: fixed;
-  z-index: 99999999;
+  z-index: 1999;
   top: 0;
   right: 0;
   left: 250px;

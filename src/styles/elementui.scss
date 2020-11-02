@@ -108,13 +108,17 @@ color:#303133;
 }
 
 #edit-wrap{
+  .el-dialog {
+    margin-top: 3vh!important; 
+    margin: 0 auto;
   .el-dialog__body {
-    padding: 20px 40px;
+    padding:10px 20px 40px;
     .el-form-item {
-      margin-bottom: 10px;
+      margin-bottom: 22px;
     }
     .el-textarea .el-textarea__inner{ // 然后找到对应的类名，在这里将拉伸去掉即可
       resize: none;
     }
   }
+}
 }

@@ -1,6 +1,10 @@
 <template>
   <div id="deposit">
-    <el-dialog title="金額操作" :visible.sync="dialogFormVisible" @close="resetFields('dynamicValidateForm')">
+    <el-dialog
+      title="金額操作"
+      :visible.sync="dialogFormVisible"
+      @close="resetFields('dynamicValidateForm')"
+    >
       <el-form
         :model="dynamicValidateForm"
         ref="dynamicValidateForm"
@@ -25,8 +29,8 @@
             label="金額"
             prop="depositAmount"
             :rules="[
-              { required: true, message: '年龄不能为空' },
-              { type: 'number', message: '年龄必须为数字值' }
+              { required: true, message: '請輸入金額' },
+              { type: 'number', message: '金額必须为数字值' }
             ]"
           >
             <el-input
@@ -46,7 +50,7 @@
             :prop="'domains.' + index + '.value'"
             :rules="{
               required: true,
-              message: '域名不能为空',
+              message: '項目不能为空',
               trigger: 'blur'
             }"
           >
@@ -180,10 +184,8 @@ export default {
       refs[formName].validate(valid => {
         if (valid) {
           dynamicValidateForm.type === 'deposit' ? deposit() : widthdraw();
-          dialogFormVisible.value = false;
-        } else {
-          root.$message.error('信箱不能為空');
         }
+        return;
       });
     };
     // ( 儲值操作 )
@@ -203,6 +205,7 @@ export default {
             message: '成功操作',
             type: 'success'
           });
+          dialogFormVisible.value = false;
         })
         .catch(err => {
           console.log(err);
@@ -222,7 +225,7 @@ export default {
         type: dynamicValidateForm.type,
         detail: dynamicValidateForm.domains
       };
-
+      console.log(user);
       Withdraw(requestData)
         .then(response => {
           root.$store.commit('userData/RENDER_USER', response.data);
@@ -230,6 +233,7 @@ export default {
             message: '操作成功',
             type: 'success'
           });
+          dialogFormVisible.value = false;
         })
         .catch(error => {
           root.$message({
@@ -240,10 +244,9 @@ export default {
     };
 
     const removeDomain = item => {
-     
       var index = dynamicValidateForm.domains.indexOf(item);
-      if (index !== -1 && dynamicValidateForm.domains.length!==1) {
-         console.log(dynamicValidateForm.domains.length);
+      if (index !== -1 && dynamicValidateForm.domains.length !== 1) {
+        console.log(dynamicValidateForm.domains.length);
         dynamicValidateForm.domains.splice(index, 1);
       }
     };
@@ -257,7 +260,7 @@ export default {
     };
 
     const resetFields = () => {
-        refs['dynamicValidateForm'].resetFields();
+      refs['dynamicValidateForm'].resetFields();
     };
     return {
       resetFields,
@@ -283,5 +286,4 @@ export default {
 .el-form-item__error {
   top: 60%;
 }
-
 </style>

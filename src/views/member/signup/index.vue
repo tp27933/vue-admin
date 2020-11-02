@@ -44,7 +44,12 @@
             </template>
 
             <template v-else-if="item.lableProp === 'note'">
-              <el-input type="textarea" v-model="ruleForm.note"></el-input>
+              <el-input
+                type="textarea"
+                v-model="ruleForm.note"
+                maxlength="60"
+                show-word-limit
+              ></el-input>
             </template>
 
             <template v-else-if="item.lableProp === 'name'">
@@ -165,7 +170,7 @@ export default {
       level: [
         {
           required: true,
-          message: '请选择活會員卡級別',
+          message: '请选择會員卡級別',
           trigger: 'change'
         }
       ],
@@ -233,9 +238,9 @@ export default {
             message: '註冊成功',
             type: 'success'
           });
-          // root.$router.push({
-          //   name: 'Operation',
-          // })
+          root.$router.push({
+            name: 'Operation'
+          });
         })
         .catch(error => {
           root.$message({

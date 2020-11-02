@@ -82,8 +82,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+$picWidth_Height: 220px;
+
 .item-image {
-  background-image: url('https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png');
   background-position: center center;
   background-size: cover;
 }
@@ -91,13 +92,14 @@ ul {
   padding: 0 50px;
 }
 li {
-  width: 220px;
-  height: 220px;
+  width: $picWidth_Height;
+  height: $picWidth_Height;
   display: inline-block;
-  margin-left: 50px;
+  margin-bottom: 30px;
+  margin-left: 85px;
 }
-li:nth-child(2n) {
-  margin: 10px 10px 0 50px;
+li:first-child {
+  margin-left: 0;
 }
 .item {
   position: relative;
@@ -136,8 +138,8 @@ li:nth-child(2n) {
   position: absolute;
   top: -20px;
   left: -20px;
-  width: 220px;
-  height: 220px;
+  width: $picWidth_Height;
+  height: $picWidth_Height;
   border-radius: 50%;
 
   -webkit-transition: all 0.4s ease-in-out;

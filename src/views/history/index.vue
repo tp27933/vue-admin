@@ -122,10 +122,15 @@ export default {
         start: date.value[0],
         end: date.value[1]
       };
+      if (date.value[0] === undefined) {
+        root.$message.error('請選擇日期');
+        return;
+      }
       getAllUserInfo(data);
     };
     // ( 請求全部數據 )
     const getAllUserInfo = data => {
+      console.log('1312');
       let sendData = data || null;
       console.log(sendData);
       UsersHistory(sendData)
@@ -169,6 +174,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/deep/.el-table {
+  margin-top: 20px;
+}
+.el-pagination {
+  margin: 35px;
+  float: right;
+}
 .row-expand-cover {
   .el-table__expand-icon {
     visibility: hidden !important;

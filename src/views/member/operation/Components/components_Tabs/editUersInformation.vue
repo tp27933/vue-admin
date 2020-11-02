@@ -1,12 +1,13 @@
 <template>
   <div id="edit-wrap">
     <el-dialog title="修改資料" :visible.sync="dialogFormVisible" @open="getData()">
-      <el-form ref="form" :model="renderData.table" label-width="80px">
+      <el-form ref="renderData.table" :model="renderData.table" label-width="80px" :rules="rules">
         <template v-for="(val, key, index) in renderData.table">
           <el-form-item
             :key="index"
             v-if="DataTransform[key]"
             :label="DataTransform[key].label + ' :'"
+            :prop="key"
           >
             <template v-if="key === 'name' || key === 'phoneNumber'">
               <el-input v-model.trim="renderData.table[key]" placeholder="请输入内容" clearable>
@@ -17,7 +18,7 @@
                 v-model="renderData.table.note"
                 type="textarea"
                 placeholder="请输入内容"
-                maxlength="100"
+                maxlength="60"
                 show-word-limit
               >
               </el-input>
@@ -28,21 +29,24 @@
           </el-form-item>
         </template>
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitEdit">确 定</el-button>
+        <el-button type="primary" @click="submitEdit('renderData.table')" :disabled="disabled"
+          >确 定</el-button
+        >
       </el-form>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { reactive, ref, computed, onBeforeMount } from '@vue/composition-api';
+import { reactive, ref, computed, onBeforeMount, watch } from '@vue/composition-api';
 import { UpdataUserData } from '@/api/user.js';
 export default {
   name: 'Edit_Tabs',
-  setup(props, { root, emit }) {
+  setup(props, { root, emit, refs }) {
     /*-----------------初始化數值----------------------*/
     const changeAble = reactive(['name', 'phoneNumber']);
     const dialogFormVisible = ref(false);
+    const disabled = ref(true);
     const formLabelWidth = ref('120px');
     const DataTransform = reactive({
       name: {
@@ -71,13 +75,44 @@ export default {
     const renderData = reactive({
       table: {}
     });
+
+    const validatePhone = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('請輸入內容'));
+      } else {
+        if (isNaN(value)) {
+          callback(new Error('請輸入數字'));
+        }
+        callback();
+      }
+    };
+
+    const rules = reactive({
+      name: [
+        { required: true, message: '請輸入姓名', trigger: 'blur' },
+        { min: 2, max: 5, message: '長度只能2-5字', trigger: 'blur' }
+      ],
+      phoneNumber: [{ required: true, validator: validatePhone, trigger: 'blur' }]
+    });
+    /*---------------函數----------------------*/
     const data = computed(() => {
       return root.$store.state.userData.userForm;
     });
-    /*---------------函數----------------------*/
+    const formData = computed({
+      get: () => {
+        let orginalUserData = root.$store.state.userData.userForm;
+        let result = Object.keys(renderData.table).every(item => {
+          return renderData.table[item] == orginalUserData[item];
+        });
+        disabled.value = result;
+        console.log(result);
+      }
+    });
+    watch(formData, (newValue, oldValue) => {
+      return formData;
+    });
 
     const getData = () => {
-      console.log(root.$store.state.userData.userForm);
       let data = root.$store.state.userData.userForm;
       for (let key in data) {
         if (DataTransform[key]) {
@@ -87,23 +122,20 @@ export default {
     };
 
     // ( 提交數據 )
-    const submitEdit = () => {
-      let sendData = {
-        name: renderData.table.name,
-        phoneNumber: renderData.table.phoneNumber,
-        note: renderData.table.note
-      };
-
-      let orginalUserData = root.$store.state.userData.userForm;
-
-      let result = Object.keys(sendData).every(item => {
-        return sendData[item] == orginalUserData[item];
+    const submitEdit = formName => {
+      refs[formName].validate(valid => {
+        if (valid) {
+          let sendData = {
+            name: renderData.table.name,
+            phoneNumber: renderData.table.phoneNumber,
+            note: renderData.table.note
+          };
+          sendEditRequest(sendData);
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
       });
-      if (result) {
-        return;
-      } else {
-        sendEditRequest(sendData);
-      }
     };
 
     const sendEditRequest = data => {
@@ -114,7 +146,7 @@ export default {
             message: '成功修改 ! ',
             type: 'success'
           });
-          dialogFormVisible = false;
+          dialogFormVisible.value = false;
         })
         .catch(error => {
           return false;
@@ -122,6 +154,8 @@ export default {
     };
 
     return {
+      disabled,
+      rules,
       renderData,
       getData,
       changeAble,

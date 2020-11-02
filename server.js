@@ -171,6 +171,7 @@ app.post('/withdraw', (req, res) => {
   let sum = key.detail.reduce(function(prev, next, index, array) {
     return prev + next.amount;
   }, 0);
+  console.log('key' + req.query.key);
   //更新數據庫'
   Users.findOneAndUpdate(
     { cardNumber: key.cardNumber },
@@ -190,7 +191,7 @@ app.post('/withdraw', (req, res) => {
         amount: sum,
         date: formateDate()
       });
-
+      console.log('doc' + 'doc');
       userHistory.save();
       res.send(doc);
     }
@@ -226,6 +227,7 @@ app.get('/personalHistory', (req, res) => {
   let number = JSON.parse(key);
   console.log(number);
   UsersHistory.find({ cardNumber: number.cardNumber })
+    .sort({ $natural: -1 })
     .limit(20)
     .then(result => {
       res.send(result);
@@ -246,22 +248,25 @@ app.post('/updataUserData', (req, res) => {
 });
 
 app.get('/usersHistory', (req, res) => {
-  console.log('123');
   const key = JSON.stringify(req.query.key) || JSON.stringify(req.query);
 
   if (key === '{}') {
-    UsersHistory.find({}).then(result => {
-      res.send(result);
-    });
+    UsersHistory.find({})
+      .sort({ $natural: -1 })
+      .then(result => {
+        res.send(result);
+      });
   } else {
     let data = JSON.parse(req.query.key);
     let startTime = data.start;
     let endTime = data.end;
-    UsersHistory.find({ date: { $gte: new Date(startTime), $lte: new Date(endTime) } }).then(
-      result => {
+    UsersHistory.find({ date: { $gte: new Date(startTime), $lte: new Date(endTime) } })
+      .sort({ $natural: -1 })
+      .then(result => {
+        console.log('123');
+        console.log(result);
         res.send(result);
-      }
-    );
+      });
   }
 });
 
@@ -303,7 +308,6 @@ app.get('/getMemberAmount', (req, res) => {
     }
   );
 });
-
 
 //設定server網址，因為在本機端測試，所以輸入127.0.0.1
 //const hostname = '127.0.0.1'  //上傳至伺服器需拿掉
