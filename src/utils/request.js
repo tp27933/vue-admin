@@ -5,7 +5,7 @@ import { Message } from 'element-ui';
 
 
 
-const BASEURL=process.env.NODE_ENV === 'production' ? '':  '/devApi'
+const BASEURL=  '/devApi'
 //創建 axios,賦給變量service
 const service = axios.create({
   baseURL:BASEURL,
