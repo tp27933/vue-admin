@@ -84,7 +84,7 @@ module.exports = {
         }
       },
       '/devApi': {
-        target: 'http://www.web-jshtml.cn/productapi/token', //目标接口域名
+        target: 'http://www.web-jshtml.cn/productapi/token/', //目标接口域名
         changeOrigin: true, //是否跨域
         pathRewrite: {
           '^/devApi': '' //重写接口
