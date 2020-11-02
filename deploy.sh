@@ -1,21 +1,18 @@
-.DS_Store
-node_modules
+#!/usr/bin/env sh
 
+# abort on errors
+set -e
 
-# local env files
-.env.local
-.env.*.local
+# build
+npm run build
 
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# navigate into the build output directory
+cd dist
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+git init
+git add -A
+git commit -m 'deploy'
+
+git push -f git@github.com:tp27933/vue-admin.git master:gh-pages
+
+cd -

@@ -142,7 +142,6 @@ export default {
 
     const checkUser = value => {
       Search(value).then(SearchResponse => {
-        console.log(SearchResponse);
         if (SearchResponse.data === '') {
           root.$message.error('查無此用戶，請再次輸入');
           return;

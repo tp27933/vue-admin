@@ -68,7 +68,6 @@ export default {
     watch(
       () => props.config.tableData,
       (value, oldValue) => {
-        console.log(value);
         const result = value.map(item => ({
           ...item, //es6省略符號 相當於 id:item.id
           date: initDate(item.date), //不直接通过item.data = item.data+ 2

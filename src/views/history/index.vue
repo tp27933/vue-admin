@@ -127,9 +127,9 @@ export default {
     // ( 請求全部數據 )
     const getAllUserInfo = data => {
       let sendData = data || null;
+      console.log(sendData);
       UsersHistory(sendData)
         .then(response => {
-          console.log(response);
           totalTable_data.item = response.data;
           pages.total = totalTable_data.item.length;
           getList(pages.currentPage, pages.pagesize);
