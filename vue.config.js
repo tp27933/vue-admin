@@ -5,11 +5,6 @@ function resolve(dir) {
 }
 
 module.exports = {
-  publicPath:
-    process.env.NODE_ENV === 'production'
-      ? '/vue-admin/' // <REPO> 是github的專案名稱
-      : '/',
-  outputDir: process.env.NODE_ENV === 'production' ? 'dist' : 'devdist',
 
   // eslint-loader 是否在保存的时候检查
   lintOnSave: true,
