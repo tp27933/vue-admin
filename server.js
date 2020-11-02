@@ -1,5 +1,6 @@
 // 引入express框架
 const express = require('express');
+let request = require('request');
 // 创建web服务器
 const app = express();
 // 路径处理模块
@@ -319,6 +320,24 @@ app.get('/getMemberAmount', (req, res) => {
   );
 });
 
+app.get('/getOuterApi', function(req, res, next) {
+  console.log(req);
+  request(
+    {
+      url: 'http://www.web-jshtml.cn/productapi/token/getSms/',
+      method: 'POST',
+      json: true,
+      headers: {
+        'content-type': ' application/json'
+      },
+      body: { username: 'missjoker59@qq.com', module: 'login' }
+    },
+    function(error, response, body) {
+      console.log(response.body);
+      res.send(response.body);
+    }
+  );
+});
 //設定server網址，因為在本機端測試，所以輸入127.0.0.1
 //const hostname = '127.0.0.1'  //上傳至伺服器需拿掉
 

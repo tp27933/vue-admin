@@ -1,10 +1,10 @@
-import service from '@/utils/request.js';
+import service from '@/utils/user_request.js';
 
 //獲取驗證碼
 export function getSms(data) {
   return service.request({
-    method: 'post',
-    url: '/getSms/',
+    method: 'get',
+    url: '/getOuterApi',
     data
   });
 }
