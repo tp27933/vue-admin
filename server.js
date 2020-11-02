@@ -125,7 +125,7 @@ app.post('/signup', (req, res) => {
     function(err) {
       if (err) {
         res.send(err);
-        console.log(err +'ohoh');
+        console.log(err + 'ohoh');
       }
       let userHistory = new UsersHistory({
         name: data.name,
@@ -134,7 +134,7 @@ app.post('/signup', (req, res) => {
         amount: data.amount,
         date: formateDate()
       });
-    
+      res.send();
       userHistory.save();
     }
   );

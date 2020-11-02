@@ -44,14 +44,11 @@ const actions = {
     commit('RESET_USER');
   },
   UPDATE_USER_DATA({ commit, state }, requestData) {
-    console.log(state.userForm.cardNumber);
     requestData.cardNumber = state.userForm.cardNumber;
     return new Promise((resolve, rejcet) => {
       UpdataUserData(requestData)
         .then(response => {
-          console.log(response);
           commit('RENDER_USER', response.data);
-          console.log(state);
           resolve(response);
         })
         .catch(error => {

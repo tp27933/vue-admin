@@ -234,26 +234,26 @@ export default {
 
       Signup(requestData, pic)
         .then(response => {
-          let translate={
-            phoneNumber:'電話',
-            cardNumber:'卡號'
-          }
-          let errorItem=Object.keys(response.data.keyValue)
+          let translate = {
+            phoneNumber: '電話',
+            cardNumber: '卡號'
+          };
+          let errorItem = Object.keys(response.data.keyValue);
           console.log(response);
-          if(response.data.name==="MongoError"){
-             root.$message({
-            message:translate[errorItem] +'已被使用',
-            type: 'error'
-          });
-          return;
+          if (response.data.name === 'MongoError') {
+            root.$message({
+              message: translate[errorItem] + '已被使用',
+              type: 'error'
+            });
+            return;
           }
           root.$message({
             message: '註冊成功',
             type: 'success'
           });
-          // root.$router.push({
-          //   name: 'Operation'
-          // });
+          root.$router.push({
+            name: 'Operation'
+          });
         })
         .catch(error => {
           root.$message({
