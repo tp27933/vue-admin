@@ -13,7 +13,7 @@ const service = axios.create({
 
 // 添加请求拦截器
 service.interceptors.request.use(function (config) {
-console.log(BASEURL);
+
   // config.data=JSON.stringify(config.data)
   // 在发送请求之前做些什么
   return config;
