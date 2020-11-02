@@ -126,6 +126,7 @@ export default {
       }
     });
     watch(vuexData, (newValue, oldValue) => {
+      console.log(vuexData);
       return newValue;
     });
     /*-----------------函數聲明---------------------*/
@@ -142,7 +143,6 @@ export default {
 
     const checkUser = value => {
       Search(value).then(SearchResponse => {
-        console.log(SearchResponse);
         if (SearchResponse.data === '') {
           root.$message.error('查無此用戶，請再次輸入');
           return;
@@ -151,6 +151,7 @@ export default {
         GETPROFILE(value).then(response => {
           // ( 後台數據用戶沒有頭像時默認圖片地址 )
           if (response.data.byteLength === 0) {
+            console.log('000000000');
             SearchResponse.data.pic =
               'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png';
           } else {
@@ -170,9 +171,10 @@ export default {
                 root.$set(data.formData, key, SearchResponse.data[key]);
               }
             }
-            root.$store.commit('userData/RENDER_USER', SearchResponse.data);
-            root.$store.commit('userData/SET_TABS_DISABLED', false);
           }
+          console.log(SearchResponse.data);
+          root.$store.commit('userData/RENDER_USER', SearchResponse.data);
+          root.$store.commit('userData/SET_TABS_DISABLED', false);
         });
       });
     };

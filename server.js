@@ -192,7 +192,6 @@ app.post('/withdraw', (req, res) => {
       });
 
       userHistory.save();
-      console.log(doc);
       res.send(doc);
     }
   );
@@ -305,8 +304,6 @@ app.get('/getMemberAmount', (req, res) => {
   );
 });
 
-//引用'http'模組
-const http = require('http');
 
 //設定server網址，因為在本機端測試，所以輸入127.0.0.1
 //const hostname = '127.0.0.1'  //上傳至伺服器需拿掉
