@@ -1,8 +1,6 @@
 import axios from 'axios'
 
 
-
-
 const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/userApi'
 //創建 axios,賦給變量service
 const service = axios.create({
