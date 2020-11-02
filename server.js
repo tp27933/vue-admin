@@ -1,10 +1,17 @@
 // 引入express框架
-const express = require('express');
+const express = require('express')
 // 创建web服务器
 const app = express();
-// 路径处理模块
 const path = require('path');
 const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const multer = require('multer');
+const fs = require('fs');
+const serveStatic = require('serve-static');
+app.use(serveStatic(path.join(__dirname, 'dist')));
 
 var mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
@@ -12,27 +19,22 @@ mongoose.set('useCreateIndex', true);
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: false }));
-const multer = require('multer');
-const fs = require('fs');
 
 // 静态资源访问服务功能
-const serveStatic = require('serve-static');
-app.use(serveStatic(path.join(__dirname, 'dist')));
+app.use((req, res, next) => {
+  res.set({
+    'Access-Control-Allow-Origin': req.headers.origin || '*',
+    'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
+    'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS'
+    //   "Content-Type":"application/x-www-form-urlencoded/text"
+  });
+  req.method === 'OPTIONS' ? res.status(204).end : next();
+});
 
-
-
-  if (process.env.NODE_ENV == 'production') {
-    mongoose
-      .connect(
-        'mongodb+srv://tp27933:tp2793371@cluster0.cgthg.mongodb.net/<dbname>?retryWrites=true&w=majority',
-        { useNewUrlParser: true, useUnifiedTopology: true }
-      )
-      .then(() => console.log('success'))
-      .catch(err => console.log(err, 'fail')); //此处改为mongodb Atlas上的字段码
-  } else {
-    mongoose.connect('mongodb://localhost/user');
-  }
-  
+mongoose
+  .connect('mongodb://localhost/user', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('success'))
+  .catch(err => console.log(err, 'fail'));
 function tran_val(val) {
   if (val < 10) {
     val = '0' + val;
@@ -311,11 +313,15 @@ app.get('/getMemberAmount', (req, res) => {
   );
 });
 
+//引用'http'模組
+const http = require('http');
+
 //設定server網址，因為在本機端測試，所以輸入127.0.0.1
 //const hostname = '127.0.0.1'  //上傳至伺服器需拿掉
 
 //port 號會由 Heroku 給予，因此不再自行指定
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
   console.log(`
     Serve is running~
