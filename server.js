@@ -28,7 +28,10 @@ if (process.env.NODE_ENV == 'production') {
     .then(() => console.log('success'))
     .catch(err => console.log(err, 'fail')); //此处改为mongodb Atlas上的字段码
 } else {
-  mongoose.connect('mongodb://localhost/user');
+  mongoose
+    .connect('mongodb://localhost/user', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('success'))
+    .catch(err => console.log(err, 'fail'));
 }
 
 function tran_val(val) {
@@ -37,8 +40,6 @@ function tran_val(val) {
   }
   return val;
 }
-var date = new Date();
-var timer = date.getTime().toString();
 function formateDate() {
   var date = new Date();
   var year = date.getFullYear();
@@ -252,7 +253,7 @@ app.post('/updataUserData', (req, res) => {
   });
 });
 
-app.get('/usersHistory' + timer, null, (req, res) => {
+app.get('/usersHistory', (req, res) => {
   console.log('123');
   const key = JSON.stringify(req.query.key) || JSON.stringify(req.query);
 
