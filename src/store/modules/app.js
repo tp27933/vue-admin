@@ -21,7 +21,6 @@ const mutations = {
     sessionStorage.setItem('isCollapse', JSON.stringify(state.isCollapse));
   },
   SET_TOKEN(state, value) {
-    console.log(value);
     state.token = value;
   },
   SET_USERNAME(sate, value) {
@@ -34,7 +33,6 @@ const actions = {
       Login(requestData)
         .then(response => {
           let data = response.data.data;
-          console.log(data.token);
           commit('SET_TOKEN', data.token);
           commit('SET_USERNAME', data.username);
           setToken(data.token);
@@ -42,14 +40,13 @@ const actions = {
           resolve(response);
         })
         .catch(error => {
-          rejcet(error);
+          
         });
     });
   },
   logout({ commit }) {
     return new Promise((resolve, rejcet) => {
       removeToken();
-      console.log('logout');
       removeUserName();
       commit('SET_TOKEN', '');
       commit('SET_USERNAME', '');

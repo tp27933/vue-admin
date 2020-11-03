@@ -59,7 +59,6 @@ export default {
     /*---------------函數聲明----------------*/
 
     watch(() => valueInput, (value, oldValue) => {
-      console.log(val);
       emit('update:valueInput', val)
     })
 

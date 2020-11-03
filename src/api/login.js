@@ -3,8 +3,8 @@ import service from '@/utils/user_request.js';
 //獲取驗證碼
 export function getSms(data) {
   return service.request({
-    method: 'get',
-    url: '/getOuterApi',
+    method: 'post',
+    url: '/getSms',
     data
   });
 }
@@ -12,7 +12,7 @@ export function getSms(data) {
 export function register(data) {
   return service.request({
     method: 'post',
-    url: '/register/',
+    url: '/getBtn',
     data
   });
 }
@@ -20,7 +20,7 @@ export function register(data) {
 export function Login(data) {
   return service.request({
     method: 'post',
-    url: '/login/',
+    url: '/getBtn',
     data
   });
 }

@@ -25,7 +25,10 @@ if (process.env.NODE_ENV == 'production') {
     .then(() => console.log('success'))
     .catch(err => console.log(err, 'fail')); //此处改为mongodb Atlas上的字段码
 } else {
-  mongoose.connect('mongodb://localhost/user');
+  mongoose
+    .connect('mongodb://localhost/user', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('success'))
+    .catch(err => console.log(err, 'fail')); //此处改为mongodb Atlas上的字段码;
 }
 
 function tran_val(val) {
@@ -319,9 +322,8 @@ app.get('/getMemberAmount', (req, res) => {
     }
   );
 });
+app.post('/getSms', function(req, res, next) {
 
-app.get('/getOuterApi', function(req, res, next) {
-  console.log(req);
   request(
     {
       url: 'http://www.web-jshtml.cn/productapi/token/getSms/',
@@ -330,7 +332,7 @@ app.get('/getOuterApi', function(req, res, next) {
       headers: {
         'content-type': ' application/json'
       },
-      body: { username: 'missjoker59@qq.com', module: 'login' }
+      body: req.body
     },
     function(error, response, body) {
       console.log(response.body);
@@ -338,9 +340,33 @@ app.get('/getOuterApi', function(req, res, next) {
     }
   );
 });
+
+app.post('/getBtn', function(req, res, next) {
+
+  if(req.body.module){
+    module='/register/'
+  }else{
+    module='/login/'  
+  }
+  request(
+    {
+      url: `http://www.web-jshtml.cn/productapi/token${module}`,
+      method: 'POST',
+      json: true,
+      headers: {
+        'content-type': ' application/json'
+      },
+      body: req.body
+    },
+    function(error, response, body) {
+      console.log(response.body);
+      res.send(response.body);
+    }
+  );
+});
+
 //設定server網址，因為在本機端測試，所以輸入127.0.0.1
 //const hostname = '127.0.0.1'  //上傳至伺服器需拿掉
-
 //port 號會由 Heroku 給予，因此不再自行指定
 const port = process.env.PORT || 3000;
 

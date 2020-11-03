@@ -209,8 +209,6 @@ export default {
             message: data.message,
             type: 'success'
           });
-          console.log(response);
-
           loginButtonSatus.value = false;
           countDown(5);
         })
@@ -280,16 +278,25 @@ export default {
 
       register(reguestData)
         .then(response => {
-          let data = response.data;
-          root.$message({
-            message: data.message,
-            type: 'success'
-          });
-          //註冊完後頁面自動跳轉到登入頁面
-          toggleMenu(menuTab[0]);
-          clearCountDown();
+          if (response.data.resCode ==0) {
+            let data = response.data;
+            root.$message({
+              message: response.data.message,
+              type: 'success'
+            });
+            //註冊完後頁面自動跳轉到登入頁面
+            toggleMenu(menuTab[0]);
+            clearCountDown();
+          } else {
+            root.$message({
+              message: response.data.message,
+              type: 'error'
+            });
+          }
         })
-        .catch(error => {});
+        .catch(error => {
+          console.log('err' + error);
+        });
     };
     //清除倒數計時
     const clearCountDown = () => {

@@ -105,7 +105,6 @@ export default {
           return renderData.table[item] == orginalUserData[item];
         });
         disabled.value = result;
-        console.log(result);
       }
     });
     watch(formData, (newValue, oldValue) => {
