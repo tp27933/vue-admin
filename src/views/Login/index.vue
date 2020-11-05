@@ -328,14 +328,33 @@ export default {
 </script>
 <style lang="scss" scoped>
 #login {
+    height: 100vh;
+  background: url('../../assets/bcg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+#login:before {
+  position: absolute;
+  top: 0;
+  opacity: 0.8;
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  background-color: #344a5f;
+  content: '';
+  background: linear-gradient(
+    to bottom,
+    #56249d 0%,
+    #521760 22%,
+    #320f3f 61%,
+    #2c013d 99%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .login_wrap {
   width: 330px;
   margin: auto;
 }
 .menu-tab {
+  position: relative;
   text-align: center;
   li {
     display: inline-block;
@@ -349,7 +368,7 @@ export default {
   }
 }
 .current {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 //表單 :start
@@ -369,6 +388,14 @@ export default {
 .block {
   width: 100%;
   display: block;
+}
+/deep/.el-input__inner {
+  text-align: center;
+ border: 2px solid #7798df;
+    color: #ffff;
+    background: transparent;
+    border-radius: 25px;
+    font-size: 20px;
 }
 .margin_top {
   margin-top: 25px;

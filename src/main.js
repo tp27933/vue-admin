@@ -10,6 +10,7 @@ import VueCompositionApi from '@vue/composition-api';
 import './icons/index.js';
 import './router/cookiePerimt';
 import echarts from 'echarts';
+import 'normalize.css';
 Vue.prototype.$echarts = echarts;
 
 Vue.use(ElementUI);
