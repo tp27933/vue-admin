@@ -11,25 +11,30 @@
       router
     >
       <template v-for="(item, index) in routers">
-        <el-submenu
-          v-if="!item.hidden"
-          :key="item.id"
-          :index="index + ''"
-        >
+        <el-submenu v-if="!item.hidden" :key="item.id" :index="index + ''">
+          <!--一級菜單 -->
+           
           <template slot="title">
-            <i :class="item.meta.icon"></i>
-
-            <span slot="title">{{
-              item.meta.name
-            }}</span>
+               <template  v-if="item.meta.iconfont">
+                  <svg-icon iconClass="member" className="member">
+                
+                  <span>{{ item.meta.name }}</span>
+                  </svg-icon>
+               </template>
+          <template  v-else> 
+             <i :class="item.meta.icon"></i>
+              <span slot="title">{{ item.meta.name }}</span>
+           </template>
+           
           </template>
-
-          <el-menu-item
-            v-for="subItem in item.children"
-            :key="subItem.id"
-            :index="subItem.path"
-            >{{ subItem.meta.name }}</el-menu-item
-          >
+         
+           
+           
+       
+          <!-- 子級菜單 -->
+          <el-menu-item v-for="subItem in item.children" :key="subItem.id" :index="subItem.path">{{
+            subItem.meta.name
+          }}</el-menu-item>
         </el-submenu>
       </template>
     </el-menu>
@@ -38,14 +43,7 @@
 
 <script>
 //vue3.0 composition-api
-import {
-  reactive,
-  ref,
-  isRef,
-  toRefs,
-  onMounted,
-  computed
-} from '@vue/composition-api';
+import { reactive, ref, isRef, toRefs, onMounted, computed } from '@vue/composition-api';
 
 export default {
   name: 'navMenu',
@@ -55,18 +53,11 @@ export default {
     }
   },
   setup(props, { root, emit }) {
-    localStorage.setItem(
-      'numbers',
-      JSON.stringify('1324')
-    );
+    localStorage.setItem('numbers', JSON.stringify('1324'));
 
-    console.log(
-      root.$router.options.routes[1].meta.name
-    );
+    console.log(root.$router.options);
 
-    const routers = reactive(
-      root.$router.options.routes
-    );
+    const routers = reactive(root.$router.options.routes);
 
     const isCollapse = computed(() => {
       return root.$store.state.app.isCollapse;
@@ -88,11 +79,7 @@ export default {
   left: 0;
   width: $navMenu;
   height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    #0e2e58,
-    #031833
-  );
+  background: linear-gradient(to bottom, #0e2e58, #031833);
 
   @include webkit(transition, all 0.3s ease 0s);
 

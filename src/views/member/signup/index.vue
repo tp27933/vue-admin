@@ -60,7 +60,7 @@
         </template>
 
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">
+          <el-button type="primary" @click="submitForm('ruleForm')" :disabled='disabled'>
             立即创建
           </el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -114,7 +114,7 @@ export default {
         lableProp: 'note'
       }
     ]);
-
+    const disabled=ref(false)
     const hideUpload = ref(false);
     // ( 上傳縮略圖 )
     const dialogImageUrl = ref('');
@@ -207,6 +207,7 @@ export default {
     };
 
     const signup = () => {
+      disabled.value=true;
       const fileArray = refs.upload.uploadFiles;
       // 实例化大頭貼对象
       const pic = new FormData();
@@ -239,12 +240,12 @@ export default {
             cardNumber: '卡號'
           };
           let errorItem = Object.keys(response.data.keyValue);
-          console.log(response);
           if (response.data.name === 'MongoError') {
             root.$message({
               message: translate[errorItem] + '已被使用',
               type: 'error'
             });
+            disabled.value=false;
             return;
           }
           root.$message({
@@ -256,6 +257,7 @@ export default {
           });
         })
         .catch(error => {
+          disabled.value=false;
           root.$message({
             message: '出現錯誤,請稍後再嘗試',
             type: 'error'
@@ -280,6 +282,7 @@ export default {
     };
 
     return {
+      disabled,
       labelData,
       submitForm,
       resetForm,

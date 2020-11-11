@@ -129,7 +129,7 @@ app.post('/signup', (req, res) => {
     function(err) {
       if (err) {
         res.send(err);
-        console.log(err + 'ohoh');
+        return;
       }
       let userHistory = new UsersHistory({
         name: data.name,

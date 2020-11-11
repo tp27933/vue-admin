@@ -22,6 +22,7 @@
 <script>
 import { MemberAmount } from '@/api/homeData.js';
 import { reactive, onMounted, ref } from '@vue/composition-api';
+import echarts from 'echarts';
 export default {
   name: 'home',
   setup(props, { root }) {
@@ -39,7 +40,7 @@ export default {
 
     //( echart- 餅狀圖數據)
     const drawTypeChart = () => {
-      let myChart = root.$echarts.init(document.getElementById('type_wrap'));
+      let myChart = echarts.init(document.getElementById('type_wrap'));
       window.onresize = function() {
         myChart.resize();
       };
@@ -95,7 +96,7 @@ export default {
               length2: 20
             },
             itemStyle: {
-              color: '#ff2b44'
+              color: '#DE446D'
             },
 
             animationType: 'scale',
@@ -108,9 +109,9 @@ export default {
       });
       myChart.setOption(option);
     };
-    //( echart- 柱狀圖數據)
+    //( echart- 曲線圖數據)
     const drawRevenue = () => {
-      let myChart = root.$echarts.init(document.getElementById('revenue_wrap'));
+      let myChart = echarts.init(document.getElementById('revenue_wrap'));
       window.onresize = function() {
         myChart.resize();
       };
@@ -136,9 +137,39 @@ export default {
         ],
         series: [
           {
+            name: '样例3',
+            type: 'line',
+            itemStyle: {
+              color: '#6A5ACD',
+              normal: {
+                lineStyle: {
+                  // 系列级个性化折线样式
+                  width: 2,
+                  type: 'solid',
+                  color: '#7E72AB' //线条渐变色
+                }
+              }
+            }, //线条样式
+            areaStyle: {
+              normal: {
+                //颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0.15,
+                    color: '#76BADD'
+                  },
+                  {
+                    offset: 0.34,
+                    color: '#84AADF'
+                  },
+                  {
+                    offset: 1,
+                    color: '#A998EB'
+                  }
+                ])
+              }
+            }, //区域颜色渐变
             data: [3040, 4200, 11150, 6120, 4120, 10120, 22120, 4120, 11200, 3150, 9120, 3120],
-            type: 'bar',
-            color: '  #374bbc'
           }
         ]
       });
@@ -253,13 +284,13 @@ export default {
     box-shadow: 6px 12px 7px rgba(0, 0, 0, 0.1);
   }
   span:nth-child(1) {
-    background: #374bbc;
+   background-image: linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%);
   }
-  span:nth-child(2) {
-    background: #19c959;
+    span:nth-child(2) {
+    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
   }
   span:nth-child(3) {
-    background: #ff2b44;
+ background-image: linear-gradient(to right, #a3bded 0%, #6991c7 100%);
   }
 }
 #type_wrap {

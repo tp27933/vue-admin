@@ -117,7 +117,6 @@ export default {
     const vuexData = computed({
       get: () => {
         for (let key in root.$store.state.userData.userForm) {
-          console.log('changing');
           if (data.DataTransform[key]) {
             root.$set(data.formData, key, root.$store.state.userData.userForm[key]);
           }
@@ -126,7 +125,6 @@ export default {
       }
     });
     watch(vuexData, (newValue, oldValue) => {
-      console.log(vuexData);
       return newValue;
     });
     /*-----------------函數聲明---------------------*/

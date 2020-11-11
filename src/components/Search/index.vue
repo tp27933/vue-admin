@@ -34,7 +34,7 @@ export default {
     }
   },
   setup(prop, { root, emit }) {
-    const valueInput = ref('');
+    const valueInput = ref('陳亭攸');
     /*---------------函數聲明----------------*/
 
     watch(

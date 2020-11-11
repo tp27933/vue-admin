@@ -1,4 +1,4 @@
-import router from './index';
+/*import router from './index';
 import store from '../store/index';
 import { getToken, removeToken, removeUserName } from '@/utils/getToken';
 const whiteRouter = ['/login'];
@@ -20,4 +20,4 @@ router.beforeEach((to, from, next) => {
       next('/login');
     }
   }
-});
+});*/

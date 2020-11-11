@@ -158,8 +158,8 @@ export default {
 
     //表單數據
     const ruleForm = reactive({
-      uesername: '',
-      paw: '',
+      uesername: 'missjoker59@qq.com',
+      paw: 'tp2793371',
       paws: '',
       code: ''
     });
@@ -278,7 +278,7 @@ export default {
 
       register(reguestData)
         .then(response => {
-          if (response.data.resCode ==0) {
+          if (response.data.resCode == 0) {
             let data = response.data;
             root.$message({
               message: response.data.message,
@@ -328,7 +328,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 #login {
-    height: 100vh;
+  height: 100vh;
   background: url('../../assets/bcg.jpg');
   background-size: cover;
   background-position: center;
@@ -391,11 +391,11 @@ export default {
 }
 /deep/.el-input__inner {
   text-align: center;
- border: 2px solid #7798df;
-    color: #ffff;
-    background: transparent;
-    border-radius: 25px;
-    font-size: 20px;
+  border: 2px solid #7798df;
+  color: #ffff;
+  background: transparent;
+  border-radius: 25px;
+  font-size: 20px;
 }
 .margin_top {
   margin-top: 25px;

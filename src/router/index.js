@@ -46,7 +46,7 @@ const routes = [
     name: 'Member',
     meta: {
       name: '會員管理',
-      icon: 'el-icon-s-custom'
+      iconfont: 'member'
     },
     component: () => import('../views/Layout/index.vue'),
     children: [
